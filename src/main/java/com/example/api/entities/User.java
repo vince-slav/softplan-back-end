@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 public class User implements Serializable {
@@ -18,28 +21,39 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotEmpty(message = "Preenchimento obrigatório")
 	@Column(nullable = false)
 	private String name;
-	
+
 	private String sex;
+	@Email(message = "E-mail inválido")
 	private String email;
 
+	@NotEmpty(message = "Preenchimento obrigatório")
 	@Column(nullable = false)
 	private LocalDate birthDate;
-	
+
 	private String naturalness;
 	private String nationality;
 
+	@NotEmpty(message = "Preenchimento obrigatório")
 	@Column(nullable = false, unique = true)
+	@CPF
 	private String cpf;
+	
+	private LocalDate registrationDate = LocalDate.now();
 
 	public User() {
 
 	}
-	
-	
+
+	public User(Integer id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public User(Integer id, String name, String sex, String email, LocalDate birthDate, String naturalness,
-			String nationality, String cpf) {
+			String nationality, String cpf, LocalDate registrationDate) {
 		this.id = id;
 		this.name = name;
 		this.sex = sex;
@@ -48,9 +62,8 @@ public class User implements Serializable {
 		this.naturalness = naturalness;
 		this.nationality = nationality;
 		this.cpf = cpf;
+		this.registrationDate = registrationDate;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -131,6 +144,14 @@ public class User implements Serializable {
 			return false;
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public LocalDate getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(LocalDate registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 }

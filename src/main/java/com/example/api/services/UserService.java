@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.api.dto.UserDTO;
 import com.example.api.entities.User;
 import com.example.api.repositories.UserRepository;
 
@@ -44,5 +45,9 @@ public class UserService {
 		user.setSex(obj.getSex());
 		user.setEmail(obj.getEmail());
 		user.setBirthDate(obj.getBirthDate());
+	}
+	
+	public User fromDTO (UserDTO objDto ) {
+		return new User(objDto.getId(), objDto.getName());
 	}
 }

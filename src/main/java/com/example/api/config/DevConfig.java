@@ -19,8 +19,8 @@ public class DevConfig implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		User u = new User(null, "Vicente", "masculino", "vic@gmail.com", LocalDate.now(), "Aracaju/SE", "Brasil",
-				"84668032549");
+		User u = new User(null, "Vicente", "masculino", "vic2@gmail.com", LocalDate.now(), "Aracaju/SE", "Brasil",
+				"84668032599", LocalDate.now());
 		userRespository.save(u);
 		
 	}

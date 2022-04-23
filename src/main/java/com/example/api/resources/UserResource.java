@@ -3,6 +3,8 @@ package com.example.api.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.api.dto.UserDTO;
 import com.example.api.entities.User;
 import com.example.api.services.UserService;
 
@@ -38,7 +41,8 @@ public class UserResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<User> insert(@RequestBody User obj){
+	public ResponseEntity<User> insert(@Valid @RequestBody UserDTO objDto){
+		User obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();	
 		return ResponseEntity.created(uri).body(obj);
@@ -51,7 +55,8 @@ public class UserResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<User> update(@PathVariable Integer id, @RequestBody User obj){
+	public ResponseEntity<User> update(@Valid @PathVariable Integer id, @RequestBody UserDTO objDto){
+		User obj = service.fromDTO(objDto);
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
