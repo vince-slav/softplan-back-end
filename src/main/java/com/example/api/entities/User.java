@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
@@ -29,7 +32,8 @@ public class User implements Serializable {
 	@Email(message = "E-mail inválido")
 	private String email;
 
-	@NotEmpty(message = "Preenchimento obrigatório")
+	@NotNull
+	@Past
 	@Column(nullable = false)
 	private LocalDate birthDate;
 

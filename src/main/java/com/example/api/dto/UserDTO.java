@@ -11,6 +11,7 @@ public class UserDTO implements Serializable {
 	private String sex;
 	private String email;
 	private LocalDate birthDate;
+	
 	private String naturalness;
 	private String nationality;
 	private String cpf;
