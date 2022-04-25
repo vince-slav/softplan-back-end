@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,10 @@ import com.example.api.dto.UserDTO;
 import com.example.api.entities.User;
 import com.example.api.services.UserService;
 
+
 @RestController
 @RequestMapping(value = "/users")
+@CrossOrigin(origins = "*")
 public class UserResource {
 
 	@Autowired
@@ -34,12 +37,14 @@ public class UserResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@CrossOrigin
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Integer id){
 		User u = service.findById(id);
 		return ResponseEntity.ok().body(u);
 	}
 	
+	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<User> insert(@Valid @RequestBody UserDTO objDto){
 		User obj = service.fromDTO(objDto);
@@ -48,16 +53,20 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
+	@CrossOrigin
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@CrossOrigin
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<User> update(@Valid @PathVariable Integer id, @RequestBody UserDTO objDto){
 		User obj = service.fromDTO(objDto);
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	
 }
