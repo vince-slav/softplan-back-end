@@ -25,12 +25,13 @@ import com.example.api.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
-@CrossOrigin(origins = "*")
+
 public class UserResource {
 
 	@Autowired
 	private UserService service;
 	
+	@CrossOrigin(origins = "*")
 	@GetMapping
 	public ResponseEntity<List<User>> findAll(){
 		List<User> list = service.findAll();
